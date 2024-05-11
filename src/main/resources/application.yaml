@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: SecureService
+  server:
+    port: 8088
+
+# 'Development' profile
+---
+spring:
+  config:
+    activate:
+      on-profile: Development
+  datasource:
+    url: jdbc:mariadb://localhost:3306/dbAssessment
+    username: usAssessment
+    password: mU5ic4lAss3ssm3nt
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+hibernate:
+  dialect: org.hibernate.dialect.MariaDBDialect
+
+# 'Test' profile
+---
+spring:
+  config:
+    activate:
+      on-profile: Test
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      platform: h2
+      schema-locations: classpath:sql/schema-test.sql
+      data-locations: classpath:sql/data-test.sql
+hibernate:
+  dialect: org.hibernate.dialect.MySQL5Dialect

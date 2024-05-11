@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mysql-bd:
+    image: mariadb:10.5.8
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'dbAssessment'
+      MYSQL_USER: 'usAssessment'
+      MYSQL_PASSWORD: 'mU5ic4lAss3ssm3nt'
+      MYSQL_ROOT_PASSWORD: 'r00tAss3ssm3nt'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
