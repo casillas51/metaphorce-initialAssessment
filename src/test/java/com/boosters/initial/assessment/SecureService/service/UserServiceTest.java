@@ -104,7 +104,7 @@ public class UserServiceTest extends AbstractTest {
      * Test get user by username when user does not exist.
      */
     @Test
-    void testGetUserByUsernameWhenUserDoesNotExist() throws UserNotExistException {
+    void testGetUserByUsernameWhenUserDoesNotExist() {
         assertThrows(UserNotExistException.class, () -> userService.getUserByUsername("UserNotExist"));
     }
 

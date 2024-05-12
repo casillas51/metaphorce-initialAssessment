@@ -1,6 +1,5 @@
 package com.boosters.initial.assessment.SecureService.api.model.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
