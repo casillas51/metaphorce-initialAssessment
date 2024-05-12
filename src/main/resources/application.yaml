@@ -3,6 +3,11 @@ spring:
     name: SecureService
   server:
     port: 8088
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
 
 # 'Development' profile
 ---
@@ -17,7 +22,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -29,9 +34,6 @@ spring:
       data-locations: classpath:sql/data.sql
 hibernate:
   dialect: org.hibernate.dialect.MariaDBDialect
-  transaction:
-    jta:
-      platform:
 logging:
   level:
     org:
@@ -55,18 +57,13 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-  sql:
-    init:
-      platform: h2
-      schema-locations: classpath:sql/schema-test.sql
-      data-locations: classpath:sql/data-test.sql
 hibernate:
-  dialect: org.hibernate.dialect.MySQL5Dialect
+  dialect: org.hibernate.dialect.H2Dialect
 logging:
   level:
     org:
@@ -75,4 +72,4 @@ logging:
         type:
           descriptor:
             sql: trace
-    root: debug
+    root: info

@@ -1,9 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * UserEntity
@@ -11,6 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "user")
 public class UserEntity {

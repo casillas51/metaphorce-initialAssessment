@@ -1,5 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.enums;
 
+import com.boosters.initial.assessment.SecureService.api.exception.RoleNotExistException;
+
 /**
  * The Enum RoleEnum.
  */
@@ -21,13 +23,16 @@ public enum RoleEnum {
      *
      * @param role the role
      * @return the role enum
+     * @throws RoleNotExistException the role not exist exception
      */
-    public static RoleEnum getRoleEnum(String role) {
+    public static RoleEnum getRoleEnum(String role) throws RoleNotExistException {
+
         for (RoleEnum roleEnum : RoleEnum.values()) {
             if (roleEnum.name().equals(role)) {
                 return roleEnum;
             }
         }
-        return null;
+
+        throw new RoleNotExistException(role);
     }
 }
