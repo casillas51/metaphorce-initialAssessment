@@ -1,10 +1,11 @@
-CREATE TABLE IF NOT EXISTS role (
+CREATE TABLE IF NOT EXISTS roles (
 	id_role INT AUTO_INCREMENT,
     role ENUM ('ADMIN','USER') NOT NULL,
-    PRIMARY KEY (id_role)
+    PRIMARY KEY (id_role),
+    UNIQUE (role)
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
 	id_user INT AUTO_INCREMENT,
 	username VARCHAR(25) NOT NULL,
     password VARCHAR(35) NOT NULL,
@@ -13,6 +14,6 @@ CREATE TABLE IF NOT EXISTS user (
     UNIQUE (username),
     CONSTRAINT fk_user_role
 		FOREIGN KEY (id_role)
-        REFERENCES role (id_role),
+        REFERENCES roles (id_role),
 	INDEX idx_username (username)
 );

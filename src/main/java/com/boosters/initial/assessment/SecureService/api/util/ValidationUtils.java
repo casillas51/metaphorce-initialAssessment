@@ -28,17 +28,17 @@ public class ValidationUtils {
     }
 
     /**
-     * Validate that there are no nulls in the objects.
+     * Validate that array contains null.
      *
      * @param objects the objects to validate
-     * @return true, if no nulls
+     * @return true, if nulls
      */
-    public boolean notNulls(Object... objects) {
+    public boolean containsNull(Object... objects) {
         for (Object object : objects) {
             if (null == object) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }

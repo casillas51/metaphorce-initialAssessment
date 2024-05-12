@@ -1,9 +1,17 @@
-create sequence usuario_seq start with 1 increment by 50;
+CREATE TABLE roles (
+	id_role INT AUTO_INCREMENT,
+    role ENUM ('ADMIN','USER') NOT NULL,
+    PRIMARY KEY (id_role)
+);
 
-create table usuario (
-    id_usuario bigint not null auto_increment,
-    contrasenia varchar(255) not null,
-    nombre_usuario varchar(255) not null unique,
-    rol varchar(255) not null,
-    primary key (id_usuario)
+CREATE TABLE users (
+	id_user INT AUTO_INCREMENT,
+	username VARCHAR(25) NOT NULL,
+    password VARCHAR(35) NOT NULL,
+    id_role INT NOT NULL,
+    PRIMARY KEY (id_user),
+    UNIQUE (username),
+    CONSTRAINT fk_user_role
+		FOREIGN KEY (id_role)
+        REFERENCES roles (id_role)
 );

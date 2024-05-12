@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
     /** idUser */
@@ -30,7 +30,7 @@ public class UserEntity {
     private String password;
 
     /** role */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_role", nullable = false)
     private RoleEntity role;
 }

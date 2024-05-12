@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class RoleEntity {
 
     /** Role id. */
@@ -30,7 +30,7 @@ public class RoleEntity {
     private RoleEnum role;
 
     /** Users with this role. */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
     private Set<UserEntity> users;
 
 }

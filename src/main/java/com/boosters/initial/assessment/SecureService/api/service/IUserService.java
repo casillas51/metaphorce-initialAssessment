@@ -1,7 +1,6 @@
 package com.boosters.initial.assessment.SecureService.api.service;
 
 import com.boosters.initial.assessment.SecureService.api.exception.SecureServiceException;
-import com.boosters.initial.assessment.SecureService.api.exception.UserNotExistException;
 import com.boosters.initial.assessment.SecureService.api.model.dto.UserDTO;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface IUserService {
      * @return the user DTO
      * @throws SecureServiceException the secure service exception
      */
-    public UserDTO saveUser(UserDTO userDTO) throws SecureServiceException;
+    UserDTO saveUser(UserDTO userDTO) throws SecureServiceException;
 
     /**
      * Get user by id
@@ -27,7 +26,7 @@ public interface IUserService {
      * @return the user by id
      * @throws SecureServiceException the secure service exception
      */
-    public UserDTO getUserById(Long idUser) throws SecureServiceException;
+    UserDTO getUserById(long idUser) throws SecureServiceException;
 
     /**
      * Get user by username
@@ -35,7 +34,7 @@ public interface IUserService {
      * @param username the username
      * @return the user by username
      */
-    public UserDTO getUserByUsername(String username);
+    UserDTO getUserByUsername(String username);
 
     /**
      * Update user
@@ -44,7 +43,7 @@ public interface IUserService {
      * @return the user DTO
      * @throws SecureServiceException the secure service exception
      */
-    public UserDTO updateUser(UserDTO userDTO) throws SecureServiceException;
+    UserDTO updateUser(UserDTO userDTO) throws SecureServiceException;
 
     /**
      * Delete user
@@ -52,12 +51,12 @@ public interface IUserService {
      * @param idUser the id user
      * @throws SecureServiceException the secure service exception
      */
-    public void deleteUser(Long idUser) throws SecureServiceException;
+    void deleteUser(long idUser) throws SecureServiceException;
 
     /**
      * Get all users
      *
      * @return the list
      */
-    public List<UserDTO> getAllUsers();
+    List<UserDTO> getAllUsers();
 }

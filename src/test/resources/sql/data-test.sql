@@ -1,3 +1,6 @@
-INSERT INTO usuario (id_Usuario, nombre_usuario, contrasenia, rol) VALUES (10, 'admin', 'pas123', 'ADMIN');
-INSERT INTO usuario (id_Usuario, nombre_usuario, contrasenia, rol) VALUES (20, 'user', 'pas123', 'USER');
-INSERT INTO usuario (id_Usuario, nombre_usuario, contrasenia, rol) VALUES (30, 'extra', 'pas123', 'USER');
+insert into roles (role) values ('ADMIN');
+insert into roles (role) values ('USER');
+
+insert ignore into users (username, password, id_role) values ('Admin', 'Adm123', 1);
+insert ignore into users (username, password, id_role) values ('User', 'User123', 2);
+insert ignore into users (username, password, id_role) values ('Extra', 'Extra123', 2);

@@ -2,6 +2,7 @@ package com.boosters.initial.assessment.SecureService.api.service.impl;
 
 import static com.boosters.initial.assessment.SecureService.api.util.ValidationUtils.validation;
 
+import com.boosters.initial.assessment.SecureService.api.enums.RoleEnum;
 import com.boosters.initial.assessment.SecureService.api.exception.*;
 import com.boosters.initial.assessment.SecureService.api.model.dto.UserDTO;
 import com.boosters.initial.assessment.SecureService.api.model.entity.RoleEntity;
@@ -32,17 +33,25 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO saveUser(UserDTO userDTO) throws SecureServiceException {
+
+        log.info("Saving user: {}", userDTO);
+
         validateDTOBeforeUpdate(userDTO, false);
         validateUsernameExists(userDTO.getUsername());
 
         UserEntity userEntity = convertToEntity(userDTO);
         userEntity = userRepository.save(userEntity);
 
+        log.info("User saved: {}", userEntity);
+
         return convertToDTO(userEntity);
     }
 
     @Override
-    public UserDTO getUserById(Long idUser) throws SecureServiceException {
+    public UserDTO getUserById(long idUser) throws SecureServiceException {
+
+        log.info("Getting user by id: {}", idUser);
+
         return userRepository.findById(idUser)
                 .map(this::convertToDTO)
                 .orElseThrow(
@@ -55,6 +64,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO getUserByUsername(String username) {
+
+        log.info("Getting user by username: {}", username);
+
         return userRepository.findByUsernameIgnoreCase(username)
                 .map(this::convertToDTO)
                 .orElse(null);
@@ -62,6 +74,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) throws SecureServiceException {
+
+        log.info("Updating user: {}", userDTO);
 
         validateDTOBeforeUpdate(userDTO, true);
         UserDTO userToUpdate = getUserById(userDTO.getIdUser());
@@ -74,19 +88,26 @@ public class UserServiceImpl implements IUserService {
         userEntity.setIdUser(userToUpdate.getIdUser());
         userEntity = userRepository.save(userEntity);
 
+        log.info("User updated: {}", userEntity);
+
         return convertToDTO(userEntity);
     }
 
     @Override
-    public void deleteUser(Long idUser) throws SecureServiceException {
-        validateUserIdNotNull(idUser);
-        getUserById(idUser);
+    public void deleteUser(long idUser) throws SecureServiceException {
+        log.info("Deleting user by id: {}", idUser);
 
+        getUserById(idUser);
         userRepository.deleteById(idUser);
+
+        log.info("User deleted");
     }
 
     @Override
     public List<UserDTO> getAllUsers() {
+
+        log.info("Getting all users");
+
         return userRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
@@ -117,11 +138,8 @@ public class UserServiceImpl implements IUserService {
      */
     private UserEntity convertToEntity(UserDTO userDTO) throws RoleNotExistException {
 
-        RoleEntity roleEntity = roleRepository.findByRole(userDTO.getRole())
-                .orElseThrow(() -> {
-                    log.error("Role '{}' does not exist", userDTO.getRole());
-                    return new RoleNotExistException(userDTO.getRole());
-                });
+        RoleEnum role = RoleEnum.getRoleEnum(userDTO.getRole());
+        RoleEntity roleEntity = roleRepository.findByRole(role);
 
         return new UserEntity(userDTO.getIdUser(),
                 userDTO.getUsername(),
@@ -141,7 +159,7 @@ public class UserServiceImpl implements IUserService {
             validateUserIdNotNull(userDTO.getIdUser());
         }
 
-        if (validation().notNulls(userDTO.getUsername(), userDTO.getPassword(), userDTO.getRole())) {
+        if (validation().containsNull(userDTO.getUsername(), userDTO.getPassword(), userDTO.getRole())) {
             log.error("Missing required fields");
             throw new RequiredFieldsException();
         }
