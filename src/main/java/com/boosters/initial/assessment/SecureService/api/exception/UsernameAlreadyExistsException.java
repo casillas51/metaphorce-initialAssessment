@@ -1,5 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.exception;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * The UsernameAlreadyExistsException class.
  */
@@ -19,5 +21,6 @@ public class UsernameAlreadyExistsException extends SecureServiceException {
     public UsernameAlreadyExistsException(String username) {
         this.setMessage(String.format(MESSAGE, username));
         this.setMessageCode(MESSAGE_CODE);
+        this.setHttpStatus(HttpStatus.CONFLICT);
     }
 }

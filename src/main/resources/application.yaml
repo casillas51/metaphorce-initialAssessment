@@ -22,7 +22,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -34,15 +34,6 @@ spring:
       data-locations: classpath:sql/data.sql
 hibernate:
   dialect: org.hibernate.dialect.MariaDBDialect
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: error
-        type:
-          descriptor:
-            sql: trace
-    root: info
 
 # 'Test' profile
 ---
@@ -69,12 +60,3 @@ spring:
       data-locations: classpath:sql/data-test.sql
 hibernate:
   dialect: org.hibernate.dialect.H2Dialect
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: info
-        type:
-          descriptor:
-            sql: trace
-    root: info

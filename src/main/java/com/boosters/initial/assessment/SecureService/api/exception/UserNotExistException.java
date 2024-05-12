@@ -1,5 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.exception;
 
+import org.springframework.http.HttpStatus;
+
 public class UserNotExistException extends SecureServiceException {
 
     /** Message for the exception. */
@@ -16,6 +18,7 @@ public class UserNotExistException extends SecureServiceException {
     public UserNotExistException(Long user) {
         this.setMessage(String.format(MESSAGE, user));
         this.setMessageCode(MESSAGE_CODE);
+        this.setHttpStatus(HttpStatus.NOT_FOUND);
     }
 }
 

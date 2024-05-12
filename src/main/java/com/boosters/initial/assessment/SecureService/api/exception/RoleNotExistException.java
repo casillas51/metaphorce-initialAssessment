@@ -1,5 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.exception;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * The RoleNotExistException class.
  */
@@ -19,6 +21,7 @@ public class RoleNotExistException extends SecureServiceException {
     public RoleNotExistException(String role) {
         this.setMessage(String.format(MESSAGE, role));
         this.setMessageCode(MESSAGE_CODE);
+        this.setHttpStatus(HttpStatus.NOT_FOUND);
     }
 
 }
