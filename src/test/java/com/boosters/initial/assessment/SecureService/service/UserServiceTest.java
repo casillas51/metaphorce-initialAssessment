@@ -1,6 +1,7 @@
 package com.boosters.initial.assessment.SecureService.service;
 
 import com.boosters.initial.assessment.SecureService.api.exception.SecureServiceException;
+import com.boosters.initial.assessment.SecureService.api.exception.UserNotExistException;
 import com.boosters.initial.assessment.SecureService.api.model.dto.UserDTO;
 import com.boosters.initial.assessment.SecureService.api.service.IUserService;
 import com.boosters.initial.assessment.SecureService.config.AbstractTest;
@@ -93,7 +94,7 @@ public class UserServiceTest extends AbstractTest {
      * Test get user by username.
      */
     @Test
-    void testGetUserByUsername() {
+    void testGetUserByUsername() throws UserNotExistException {
         UserDTO user = userService.getUserByUsername("User");
         assertNotNull(user);
         log.info("User by username found: {}", user);
@@ -103,9 +104,8 @@ public class UserServiceTest extends AbstractTest {
      * Test get user by username when user does not exist.
      */
     @Test
-    void testGetUserByUsernameWhenUserDoesNotExist() {
-        UserDTO user = userService.getUserByUsername("UserNotExist");
-        assertNull(user);
+    void testGetUserByUsernameWhenUserDoesNotExist() throws UserNotExistException {
+        assertThrows(UserNotExistException.class, () -> userService.getUserByUsername("UserNotExist"));
     }
 
     /**

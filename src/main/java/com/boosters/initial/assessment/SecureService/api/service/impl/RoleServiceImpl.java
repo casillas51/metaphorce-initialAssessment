@@ -63,7 +63,11 @@ public class RoleServiceImpl implements IRoleService {
         log.info("Getting role by name: {}", roleName);
 
         RoleEnum role = RoleEnum.getRoleEnum(roleName);
-        RoleEntity roleEntity =  roleRepository.findByRole(role);
+        RoleEntity roleEntity =  roleRepository.findByRole(role).orElseThrow(
+                () -> {
+                    log.info("Role with name '{}' does not exist", roleName);
+                    return new RoleNotExistException(roleName);
+                });
 
         log.info("Role found: {}", roleEntity);
 
@@ -177,7 +181,9 @@ public class RoleServiceImpl implements IRoleService {
      * @throws RoleAlreadyExistsException the role already exists exception
      */
     private void validateRoleExists(RoleEnum role) throws RoleAlreadyExistsException {
-        if (null != roleRepository.findByRole(role)) {
+        RoleEntity roleEntity = roleRepository.findByRole(role).orElse(null);
+
+        if (null != roleEntity) {
             log.error("Role '{}' already exists", role);
             throw new RoleAlreadyExistsException(role.name());
         }

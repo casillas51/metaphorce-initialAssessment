@@ -1,6 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.service;
 
 import com.boosters.initial.assessment.SecureService.api.exception.SecureServiceException;
+import com.boosters.initial.assessment.SecureService.api.exception.UserNotExistException;
 import com.boosters.initial.assessment.SecureService.api.model.dto.UserDTO;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface IUserService {
      * @param username the username
      * @return the user by username
      */
-    UserDTO getUserByUsername(String username);
+    UserDTO getUserByUsername(String username) throws UserNotExistException;
 
     /**
      * Update user

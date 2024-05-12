@@ -1,6 +1,7 @@
 package com.boosters.initial.assessment.SecureService.api.controller;
 
 import com.boosters.initial.assessment.SecureService.api.exception.SecureServiceException;
+import com.boosters.initial.assessment.SecureService.api.exception.UserNotExistException;
 import com.boosters.initial.assessment.SecureService.api.model.dto.UserDTO;
 import com.boosters.initial.assessment.SecureService.api.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class UserController {
      * @return the retrieved user
      */
     @GetMapping("/username/{username}")
-    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) throws UserNotExistException {
         UserDTO user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }

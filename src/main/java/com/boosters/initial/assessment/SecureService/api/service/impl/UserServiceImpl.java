@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
         UserEntity userEntity = convertToEntity(userDTO);
         userEntity = userRepository.save(userEntity);
 
-        log.info("User saved: {}", userEntity);
+        log.info("User saved with id: {}", userEntity.getIdUser());
 
         return convertToDTO(userEntity);
     }
@@ -57,19 +57,23 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(
                         () -> {
                             log.error("User with id '{}' does not exist", idUser);
-                            return new UserNotExistException(idUser);
+                            return new UserNotExistException(String.valueOf(idUser));
                         }
                 );
     }
 
     @Override
-    public UserDTO getUserByUsername(String username) {
+    public UserDTO getUserByUsername(String username) throws UserNotExistException {
 
         log.info("Getting user by username: {}", username);
 
         return userRepository.findByUsernameIgnoreCase(username)
                 .map(this::convertToDTO)
-                .orElse(null);
+                .orElseThrow(
+                        () -> {
+                            log.error("User with username '{}' does not exist", username);
+                            return new UserNotExistException(username);
+                        });
     }
 
     @Override
@@ -139,7 +143,11 @@ public class UserServiceImpl implements IUserService {
     private UserEntity convertToEntity(UserDTO userDTO) throws RoleNotExistException {
 
         RoleEnum role = RoleEnum.getRoleEnum(userDTO.getRole());
-        RoleEntity roleEntity = roleRepository.findByRole(role);
+        RoleEntity roleEntity =  roleRepository.findByRole(role).orElseThrow(
+                () -> {
+                    log.info("Role with name '{}' does not exist", role.name());
+                    return new RoleNotExistException(role.name());
+                });
 
         return new UserEntity(userDTO.getIdUser(),
                 userDTO.getUsername(),
@@ -186,7 +194,12 @@ public class UserServiceImpl implements IUserService {
      * @throws UsernameAlreadyExistsException the username already exists exception
      */
     private void validateUsernameExists(String username) throws UsernameAlreadyExistsException {
-        if (null != getUserByUsername(username)) {
+
+        UserDTO userDTO = userRepository.findByUsernameIgnoreCase(username)
+                .map(this::convertToDTO)
+                .orElse(null);
+
+        if (null != userDTO) {
             log.error("User '{}' already exists", username);
             throw new UsernameAlreadyExistsException(username);
         }
