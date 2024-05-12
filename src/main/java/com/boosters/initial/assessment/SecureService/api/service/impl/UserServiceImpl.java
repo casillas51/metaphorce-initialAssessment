@@ -151,6 +151,7 @@ public class UserServiceImpl implements IUserService {
      * Validate DTO before update.
      *
      * @param userDTO the user DTO
+     * @param validateId validate id is required
      * @throws RequiredFieldsException the required fields exception
      */
     private void validateDTOBeforeUpdate(UserDTO userDTO, boolean validateId) throws RequiredFieldsException {

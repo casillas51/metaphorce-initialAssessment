@@ -2,9 +2,7 @@ package com.boosters.initial.assessment.SecureService.api.model.entity;
 
 import com.boosters.initial.assessment.SecureService.api.enums.RoleEnum;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
@@ -14,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class RoleEntity {
@@ -22,7 +21,7 @@ public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_role")
-    private Long idRole;
+    private long idRole;
 
     /** Role name. */
     @Enumerated(EnumType.STRING)

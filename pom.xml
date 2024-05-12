@@ -122,11 +122,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.maven.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>com.boosters.initial.assessment.SecureService/SecureServiceApplication.java</exclude>
-                    </excludes>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>

@@ -11,7 +11,9 @@ public enum RoleEnum {
     ADMIN,
 
     /** User role. */
-    USER;
+    USER,
+
+    TESTER;
 
     /** Instantiates a new role enum. */
     RoleEnum() {

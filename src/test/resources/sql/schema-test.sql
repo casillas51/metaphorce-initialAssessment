@@ -1,7 +1,8 @@
 CREATE TABLE roles (
 	id_role INT AUTO_INCREMENT,
     role ENUM ('ADMIN','USER') NOT NULL,
-    PRIMARY KEY (id_role)
+    PRIMARY KEY (id_role),
+    UNIQUE (role)
 );
 
 CREATE TABLE users (
